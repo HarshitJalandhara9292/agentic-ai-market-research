@@ -11,7 +11,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from marketing_crew.crew import TheMarketingCrew
 
-# Initialize app
 app = FastAPI(title="AI Marketing Crew API")
 
 # Configure Gemini model
