@@ -6,7 +6,6 @@ import os, sys
 import google.generativeai as genai
 from fastapi.middleware.cors import CORSMiddleware
 
-# Add parent directory to path to access marketing_crew
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from marketing_crew.crew import TheMarketingCrew
