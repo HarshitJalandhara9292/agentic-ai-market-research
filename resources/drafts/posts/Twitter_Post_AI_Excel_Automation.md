@@ -1,0 +1,1 @@
+{ "content_type": "social_media_post", "topic": "AI Excel Automation", "target_audience": "Startups and SMEs", "tags": ["AI", "Excel", "Automation", "Startups", "SMEs"], "content": "Tired of Excel headaches? Our AI Excel Automation Tool automates tedious tasks, freeing you to focus on what matters. Try it now! #AIExcel #Automation #StartupLife [Link to product page]" }

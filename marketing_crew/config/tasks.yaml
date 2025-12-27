@@ -1,0 +1,239 @@
+market_research:
+  description: >
+    Conduct market research to identify trends, opportunities, and challenges in the industry. Focus on understanding customer needs, competitor strategies, and market dynamics to inform marketing decisions.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+    <Budget>{budget}</Budget>
+
+    Current date: {current_date}
+
+  expected_output: >
+    A comprehensive market research report that includes:
+    - Analysis of market trends and opportunities
+    - Competitor analysis
+    - Customer insights and needs
+    - Recommendations for marketing strategies
+    - marketing location-wise strategies
+
+  retry_on_empty: true
+  max_retries: 2
+
+prepare_marketing_strategy:
+  description: >
+    Develop a marketing strategy that aligns with the company's goals and objectives. The strategy should include target audience segmentation, positioning, messaging, and marketing channels.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Current date: {current_date}
+    Refer to the market research report for insights and building the strategy.
+
+  expected_output: >
+    A detailed marketing strategy document that includes:
+    - Target audience segmentation
+    - Required budget
+    - Recommended marketing channels
+    - Plan of action for the week containing 3 blogs to write, 2 reels to film, and 5 social media posts to create
+    - Key performance indicators (KPIs) to measure success
+    Store the marketing strategy in 'resources/drafts/marketing_strategy.md'.
+  
+  retry_on_empty: true
+  max_retries: 2
+
+create_content_calendar:
+  description: >
+    Create a content calendar that outlines the topics, formats, and publishing schedule for the next one week. The calendar should align with the marketing strategy and include key themes and campaigns.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Current date: {current_date}
+
+  expected_output: >
+    A content calendar that includes:
+    - Topics and formats for each piece of content specified in the marketing strategy
+    - Publishing schedule
+    - Key themes and campaigns
+    Store the content calendar in 'resources/drafts/content_calendar.md'.
+
+  retry_on_empty: true
+  max_retries: 2
+
+prepare_post_drafts:
+  description: >
+    Prepare drafts for social media posts and email campaigns based on the content calendar. Ensure that the drafts are engaging, aligned with the brand voice, and optimized for each platform.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Current date: {current_date}
+
+  expected_output: >
+    Drafts for:
+    - Social media posts: LinkedIn, Twitter, Instagram
+    - Email campaigns
+    Each draft should be ready for review and feedback. Save the drafts in 'resources/drafts/posts/' folder in markdown format.
+
+  retry_on_empty: true
+  max_retries: 2
+
+prepare_scripts_for_reels:
+  description: >
+    Prepare scripts for Instagram reels that align with the content calendar and marketing strategy. The scripts should be engaging, concise, and tailored to the target audience.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Current date: {current_date}
+
+  expected_output: >
+    Scripts for Instagram reels that include:
+    - Engaging hooks
+    - Key messages
+    - Call to action
+    Each script should be ready for filming and editing. Save the scripts in 'resources/drafts/reels/' folder in markdown format. And assign tasks to the relevant team members.
+
+  retry_on_empty: true
+  max_retries: 2
+
+content_research_for_blogs:
+  description: >
+    Conduct research for blog topics that align with the content calendar and marketing strategy. The research should include keyword analysis, competitor blogs, and industry trends.
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Current date: {current_date}
+
+  expected_output: >
+    A research report that includes:
+    - Keyword analysis
+    - Competitor blog insights
+    - Industry trends
+    - Suggested blog topics and outlines
+
+  retry_on_empty: true
+  max_retries: 2
+
+draft_blogs:
+  description: >
+    Write polished, SEO-optimized blogs based on the provided dynamic inputs.
+    You will receive product details, tone, writing style, keywords, and more.
+    Use them precisely in your blog.
+
+  expected_output: >
+    final_prompt = f"""
+    You are a professional AI marketing assistant and senior content strategist.
+
+    Generate a complete, polished, SEO-optimized blog using the following dynamic inputs:
+
+    --------------------
+    🟦 PRODUCT DETAILS
+    Product Name: {product_name}
+    Product Description: {product_description}
+    Target Audience: {target_audience}
+
+    --------------------
+    🟩 WRITING CONFIG
+    Tone Style: {tone}
+    Writing Style: {style}
+    Minimum Word Count: {min_words}
+    CTA Style: {cta_style}
+
+    --------------------
+    🟧 SEO SETTINGS
+    Primary Keywords: {primary_keywords}
+    Secondary Keywords: {secondary_keywords}
+    Include Comparison Against: {comparison_products}
+
+    --------------------
+    Current Date: {current_date}
+    --------------------
+
+
+    ⬇️ **YOUR TASK**
+    Write a high-quality marketing blog using all dynamic values above.
+    Follow these rules VERY STRICTLY:
+
+    1. Output MUST be valid JSON only.
+    2. Use professional, engaging marketing language.
+    3. Do not repeat features in multiple sections.
+    4. Content must be 100% complete — no cut-off sentences.
+    5. Include these sections inside "content":
+       - Introduction
+       - Product Overview
+       - Key Features (bullet list)
+       - Real-world Use Cases
+       - Pros & Cons Table
+       - Comparison Table (using comparison_products)
+       - SEO Keyword Integration
+       - Call to Action (based on cta_style)
+       - Conclusion
+    6. Return final output in this JSON structure:
+    
+    7.The blog must be at least 1500 words and MUST be fully complete — no cut-off content.
+    
+    8.If the content is long, break it into internally managed sections, but NEVER stop mid-sentence or mid-table.
+
+
+    {{
+      "summary": "2–3 sentence summary.",
+      "content_type": "blog",
+      "topic": "Blog Title",
+      "target_audience": "{target_audience}",
+      "tags": ["auto-generate relevant tags"],
+      "content": "Full, complete, formatted blog content.",
+      "word_count": <integer>,
+      "estimated_budget_usage": {{
+          "writing": <integer>,
+          "design": <integer>,
+          "promotion": <integer>,
+          "misc": <integer>
+      }}
+    }}
+
+    Make it polished, refined, and ready to publish.
+    """
+
+    retry_on_empty: true
+    max_retries: 2
+
+  max_output_tokens: 4096
+  temperature: 0.7
+  top_p: 0.9
+
+    
+
+seo_optimization:
+  description: >
+    You are an SEO Specialist. Your job is NOT to write the blog again,
+    but to optimize the existing drafted blog based on:
+
+    <Product Name>{product_name}</Product Name>
+    <Product Description>{product_description}</Product Description>
+    <Target Audience>{target_audience}</Target Audience>
+
+    Perform strictly the following tasks:
+    1. Generate 15–20 SEO keywords + keyword clusters.
+    2. Rewrite the blog title to be keyword-rich.
+    3. Recommend optimized H1, H2, H3 headings.
+    4. Add a meta title + meta description.
+    5. Suggest internal linking points (write as: "Link this text to /product/...").
+    6. Provide a list of improvement suggestions for SEO (on-page + technical).
+    7. Provide an SEO score (0–100) with reasoning.
+
+    DO NOT rewrite the entire blog unless required.
+    Output should be structured, concise, and ready for publication.
+  
+  expected_output: >
+    - List of SEO keywords
+    - Optimized title & headings
+    - Meta tags
+    - Internal linking suggestions
+    - SEO improvement recommendations
+    - SEO score
+
+
+  retry_on_empty: true
+  max_retries: 2
